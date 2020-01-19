@@ -1,12 +1,26 @@
 import { useState, useEffect } from "react";
-function useFetch(url) {
+
+const apiUrl = "http://media.mw.metropolia.fi/wbma/";
+
+const getAllMedia = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  async function fetchUrl() => {
+  const fetchUrl = async() => {
+
     try {
-    const response = await fetch(url);
+    const response = await fetch(apiUrl + 'media/all');
     const json = await response.json();
-    setData(json);
+
+
+    const result = await Promise.all(json.files.map(async (item) => {
+      const tnresponse = await fetch(apiUrl + 'media/'+ item.file_id);
+      return await tnresponse.json();
+    }));
+
+    console.log('apihooks', result);
+
+
+    setData(result);
     setLoading(false);
     }catch(e){
       console.log('error', e.message);
@@ -18,4 +32,4 @@ function useFetch(url) {
   }, []);
   return [data, loading];
 }
-export { useFetch };
+export { getAllMedia };

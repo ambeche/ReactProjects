@@ -2,6 +2,7 @@ import React from 'react';
 
 import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
 
+const mediaURL= "http://media.mw.metropolia.fi/wbma/uploads/"
 const ListItem = (props) => {
 console.log(props);
   return (
@@ -9,7 +10,7 @@ console.log(props);
             <View style={styles.container}>
             <Image
               style={styles.image}
-              source={{uri: props.item.thumbnails.w160}}
+              source={{uri:mediaURL + props.item.thumbnails.w160}}
             />
             <View style= {styles.details}>
               <Text style= {styles.titles}>{props.item.title}</Text>
