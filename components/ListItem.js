@@ -3,7 +3,7 @@ import React from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
 
 const ListItem = (props) => {
-
+console.log(props);
   return (
     <TouchableOpacity>
             <View style={styles.container}>
