@@ -1,21 +1,13 @@
 import React from 'react';
-
-import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
-
-import List from './components/List';
-import {MediaProvider} from './contexts/MediaContexts';
-
-
-
+import {MediaProvider} from './contexts/MediaContext';
+import Navigator from './navigators/Navigator';
 
 const App = () => {
   return (
-<MediaProvider>
-    <List />
+    <MediaProvider>
+      <Navigator/>
     </MediaProvider>
   );
 };
-
-
 
 export default App;
