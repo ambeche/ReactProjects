@@ -1,57 +1,68 @@
 import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import PropTypes from 'prop-types';
 
-import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
+const mediaURL = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
-const mediaURL= "http://media.mw.metropolia.fi/wbma/uploads/"
 const ListItem = (props) => {
-console.log(props);
   return (
-    <TouchableOpacity>
-            <View style={styles.container}>
-            <Image
-              style={styles.image}
-              source={{uri:mediaURL + props.item.thumbnails.w160}}
-            />
-            <View style= {styles.details}>
-              <Text style= {styles.titles}>{props.item.title}</Text>
-              <Text style= {styles.description}>{props.item.description}</Text>
-            </View>
-            </View>
-          </TouchableOpacity>
-  )
-}
-
-
-
-    const styles = StyleSheet.create({
-      container: {
-        marginTop: 5,
-        paddingTop: 10,
-        flexDirection: 'row',
-        flex: 1,
-        backgroundColor: 'gray',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      description: {
-         fontSize: 11,
-      },
-      image: {
-        width: '20%',
-        flex: 1,
-        height: 200,
-        flexDirection: 'row',
-        margin: 10,
-
-      },
-       titles: {
-       fontWeight: 'bold',
-      },
-       details: {
-        width: '45%',
-        flex: 1,
-        flexDirection: 'column',
-        padding: 10,
+    <TouchableOpacity
+      style={styles.row}
+      onPress={
+        () => {
+          props.navigation.push('Single', {file: props.item});
+        }
       }
-    });
-    export default ListItem;
+    >
+      <View style={styles.imagebox}>
+        <Image
+          style={styles.image}
+          source={{uri: mediaURL + props.item.thumbnails.w160}}
+        />
+      </View>
+      <View style={styles.textbox}>
+        <Text style={styles.listTitle}>{props.item.title}</Text>
+        <Text>{props.item.description}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    padding: 15,
+    backgroundColor: '#ccc',
+    marginBottom: 5,
+    borderRadius: 16,
+  },
+  imagebox: {
+    flex: 1,
+  },
+  image: {
+    flex: 1,
+    borderRadius: 16,
+  },
+  textbox: {
+    flex: 2,
+    padding: 10,
+  },
+  listTitle: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    paddingBottom: 15,
+  },
+});
+
+ListItem.propTypes = {
+  singleMedia: PropTypes.object,
+  navigation: PropTypes.object,
+};
+
+export default ListItem;
