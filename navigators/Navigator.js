@@ -1,9 +1,11 @@
-import {createAppContainer} from 'react-navigation';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
 import Home from '../views/Home';
 import Profile from '../views/Profile';
 import Single from '../views/Single';
+import AuthLoading from '../views/AuthLoading';
+import Login from '../views/Login';
 
 const TabNavigator = createBottomTabNavigator(
     {
@@ -22,21 +24,10 @@ const TabNavigator = createBottomTabNavigator(
     },
     {
       initialRouteName: 'Home',
-    }
+    },
 );
 
-TabNavigator.navigationOptions = ({navigation}) => {
-  const {routeName} = navigation.state.routes[navigation.state.index];
-
-  // You can do whatever you like here to pick the title based on the route name
-  const headerTitle = routeName;
-
-  return {
-    headerTitle,
-  };
- };
-
-const Navigator = createStackNavigator(
+const StackNavigator = createStackNavigator(
     // RouteConfigs
     {
       Home: {
@@ -48,6 +39,20 @@ const Navigator = createStackNavigator(
       Single: {
         screen: Single,
       },
+      Logout: {
+        screen: Login,
+      },
+    },
+);
+
+const Navigator = createSwitchNavigator(
+    {
+      AuthLoading: AuthLoading,
+      App: StackNavigator,
+      Auth: Login,
+    },
+    {
+      initialRouteName: 'AuthLoading',
     },
 );
 
