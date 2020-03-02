@@ -1,16 +1,21 @@
 import List from "../components/List";
 import React from "react";
-import {Content, Container, Header} from "native-base";
+import {Container, View} from "native-base";
+import PropTypes from 'prop-types';
 
 const Home = (props) => {
     const {navigation} = props;
     return (
         <Container>
-            <Content>
+            <View>
                 <List navigation={navigation}/>
-            </Content>
+            </View>
         </Container>
     );
 };
 
-export default Home;
+Home.propTypes = {
+    navigation: PropTypes.object,
+};
+
+export default Home
