@@ -1,68 +1,68 @@
 import { useState, useEffect } from "react";
 
-const apiUrl = "http://media.mw.metropolia.fi/wbma/";
-
-const fetchPost = async (endpoint = "", data = {}, token = '') => {
-  const fetchOptions = {
-    method: "POST",
-    headers: {
-      "x-access-token": token,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  };
-
-  const response = await fetch(apiUrl + endpoint, fetchOptions);
-  const json = await response.json();
-  console.log(json);
-  if (response.status === 400 || response.status === 401) {
-    throw new Error(Object.values(json).join());
-  } else if (resonponse.status > 299) {
-    throw new Error("fetchPost Error" + response.status);
-  }
-
-  return json;
-};
-
-const fetchGet = async (endpoint = "", params = "", token = "") => {
-  const fetchOptions = {
-    headers: {
-      "x-access-token": token,
-    },
-  };
-  const response = await fetch(apiUrl + endpoint + '/' + params, fetchOptions);
-  if (!response.ok) {
-    throw new Error('fetch-get error' + response.status);
-  }
-  return await response.json();
-}
+const apiUrl = 'http://media.mw.metropolia.fi/wbma/';
 
 const getAllMedia = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const fetchUrl = async () => {
-    try {
-      const response = await fetch(apiUrl + "media/all");
-      const json = await response.json();
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const fetchUrl = async() => {
 
-      const result = await Promise.all(
-        json.files.map(async item => {
-          const tnresponse = await fetch(apiUrl + "media/" + item.file_id);
-          return await tnresponse.json();
-        })
-      );
+        try {
+            const response = await fetch(apiUrl + 'media/all');
+            const json = await response.json();
+            const result = await Promise.all(json.files.map(async (item) => {
+                const tnResponse = await fetch(apiUrl + 'media/' + item.file_id);
+                return await tnResponse.json();
+            }));
 
-      console.log("apihooks", result);
+            console.log('Hooks:', result);
+            setData(result);
+            setLoading(false);
+        }catch(e){
+            console.log('error', e.message);
 
-      setData(result);
-      setLoading(false);
-    } catch (e) {
-      console.log("error", e.message);
-    }
-  };
-  useEffect(() => {
-    fetchUrl();
-  }, []);
-  return [data, loading];
+        }
+    };
+
+    useEffect(() => {
+        fetchUrl();
+    }, []);
+    return [data, loading];
 };
-export { getAllMedia, fetchPost, fetchGet };
+
+const login =  async (data) =>{
+  const fetchOptions = {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+  };
+  try{
+      const  response = await fetch(apiUrl + 'login', fetchOptions);
+      return  await response.json();
+
+  }catch (e) {
+      console.log('error', e.message);
+  }
+
+};
+
+const register =  async (data) =>{
+    const fetchOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    };
+    try{
+        const  response = await fetch(apiUrl + 'users', fetchOptions);
+        return  await response.json();
+
+    }catch (e) {
+        console.log('error', e.message);
+    }
+
+};
+export { getAllMedia, login, register};

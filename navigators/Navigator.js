@@ -1,59 +1,67 @@
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import React from 'react';
+import Home from "../views/Home";
+import Profile from "../views/Profile";
+import {createStackNavigator} from "react-navigation-stack";
+import {createAppContainer,createSwitchNavigator} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-import {createStackNavigator} from 'react-navigation-stack';
-import Home from '../views/Home';
-import Profile from '../views/Profile';
-import Single from '../views/Single';
-import AuthLoading from '../views/AuthLoading';
+import {Icon} from 'native-base';
+import Single from "../views/Single";
+import AuthLoading from '../views/AuthLoading.js';
 import Login from '../views/Login';
 
 const TabNavigator = createBottomTabNavigator(
     {
-      Home: {
-        screen: Home,
-        navigationOptions: {
-          title: 'Home',
-        },
-      },
-      Profile: {
-        screen: Profile,
-        navigationOptions: {
-          title: 'Profile',
-        },
-      },
+        Home,
+        Profile,
     },
     {
-      initialRouteName: 'Home',
-    },
+        defaultNavigationOptions: ({navigation}) => ({
+            tabBarIcon: () => {
+                const {routeName} = navigation.state;
+                let iconName;
+                if (routeName === 'Home') {
+                    iconName = 'home';
+                } else if (routeName === 'Profile') {
+                    iconName = 'person';
+                }
+
+                // You can return any component that you like here!
+                return <Icon
+                    name={iconName}
+                    size={25}
+                />;
+            },
+        }),
+    }
 );
 
-const StackNavigator = createStackNavigator(
+const AppStack = createStackNavigator(
     // RouteConfigs
     {
-      Home: {
-        screen: TabNavigator,
-        navigationOptions: {
-          headerMode: 'none', // this will hide the header
+        Home: {
+            screen: TabNavigator,
+            navigationOptions: {
+                headerMode: null, // this will hide the header
+            },
         },
-      },
-      Single: {
-        screen: Single,
-      },
-      Logout: {
-        screen: Login,
-      },
+        Single: {
+            screen: Single,
+        },
+        Logout:{
+            screen: Login,
+        }
     },
 );
 
 const Navigator = createSwitchNavigator(
     {
-      AuthLoading: AuthLoading,
-      App: StackNavigator,
-      Auth: Login,
+        AuthLoading: AuthLoading,
+        App: AppStack,
+        Auth: Login,
     },
     {
-      initialRouteName: 'AuthLoading',
-    },
+        initialRouteName: 'AuthLoading',
+    }
 );
 
 export default createAppContainer(Navigator);

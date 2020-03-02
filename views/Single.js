@@ -1,42 +1,54 @@
-import React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import React, { Component } from 'react';
+import { Image } from 'react-native';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+
 import PropTypes from 'prop-types';
 
-const mediaURL = 'http://media.mw.metropolia.fi/wbma/uploads/';
-
+const mediaURL= "http://media.mw.metropolia.fi/wbma/uploads/"
 const Single = (props) => {
-  const {navigation} = props;
-  console.log('Singel navi', navigation.state);
-  const file = navigation.state.params.file;
+  console.log(props.filename);
+  const { navigation } = props;
+  const fili = navigation.getParam('file', 'not found');
+  console.log(fili);
   return (
-    <View style={styles.container}>
-      <Text>{file.title}</Text>
-      <Image
-        style={styles.image}
-        source={{uri: mediaURL + file.filename}}
-      />
-    </View>
+    <Container>
+      <Card>
+
+        <CardItem cardBody>
+              <Image source={{uri: mediaURL + fili}} style={{
+                height: 320,
+                marginLeft:10,
+                marginRight:10,
+                 width: null,
+                  flex: 1}}/>
+            </CardItem>
+
+            <CardItem>
+              <Left>
+
+                  <Icon active name="image" />
+
+                  <Body>
+                  <Text >
+                    {JSON.stringify(navigation.getParam('title', 'not found'))}
+                  </Text>
+                  <Text>
+                  {JSON.stringify(navigation.getParam('description', 'not found'))}
+                  </Text>
+                  </Body>
+                  </Left>
+            </CardItem>
+
+
+      </Card>
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 40,
-  },
-  image: {
-    borderRadius: 50,
-    width: '100%',
-    height: '90%',
-  },
-});
+
 
 Single.propTypes = {
-  navigation: PropTypes.object,
-  file: PropTypes.object,
+  style: PropTypes.object,
 };
 
 export default Single;

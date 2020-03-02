@@ -1,68 +1,36 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
 import PropTypes from 'prop-types';
+import {ListItem as ListContainer, Thumbnail, Text, Left, Body, Right, Button} from "native-base";
 
-const mediaURL = 'http://media.mw.metropolia.fi/wbma/uploads/';
+const mediaURL= "http://media.mw.metropolia.fi/wbma/uploads/";
 
 const ListItem = (props) => {
-  return (
-    <TouchableOpacity
-      style={styles.row}
-      onPress={
-        () => {
-          props.navigation.push('Single', {file: props.item});
-        }
-      }
-    >
-      <View style={styles.imagebox}>
-        <Image
-          style={styles.image}
-          source={{uri: mediaURL + props.item.thumbnails.w160}}
-        />
-      </View>
-      <View style={styles.textbox}>
-        <Text style={styles.listTitle}>{props.item.title}</Text>
-        <Text>{props.item.description}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+    return (
+        <ListContainer thumbnail>
+            <Left>
+                <Thumbnail square source={{ uri: mediaURL + props.item.thumbnails.w160 }} />
+            </Left>
+            <Body>
+                <Text>{props.item.title}</Text>
+                <Text note numberOfLines={1}>{props.item.description}</Text>
+            </Body>
+            <Right>
+                <Button info onPress={()=>{props.navigation.push('Single', {
+                    file: props.item.filename,
+                    title: props.item.title,
+                    description: props.item.description,
+                });
+                }} title='VIEW'>
+                    <Text>View</Text>
+                </Button>
+            </Right>
+        </ListContainer>
+    );
 };
 
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    padding: 15,
-    backgroundColor: '#ccc',
-    marginBottom: 5,
-    borderRadius: 16,
-  },
-  imagebox: {
-    flex: 1,
-  },
-  image: {
-    flex: 1,
-    borderRadius: 16,
-  },
-  textbox: {
-    flex: 2,
-    padding: 10,
-  },
-  listTitle: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingBottom: 15,
-  },
-});
-
 ListItem.propTypes = {
-  singleMedia: PropTypes.object,
-  navigation: PropTypes.object,
+    item: PropTypes.object,
+    navigation: PropTypes.object,
 };
 
 export default ListItem;
