@@ -5,6 +5,9 @@ import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image} from 'react-n
 const ListItem = (props) => {
 
   return (
+
+
+
     <TouchableOpacity>
             <View style={styles.container}>
             <Image
@@ -17,6 +20,9 @@ const ListItem = (props) => {
             </View>
             </View>
           </TouchableOpacity>
+
+
+
   )
 }
 
@@ -24,11 +30,20 @@ const ListItem = (props) => {
 
     const styles = StyleSheet.create({
       container: {
-        marginTop: 5,
+        marginTop: 0,
         paddingTop: 10,
         flexDirection: 'row',
         flex: 1,
-        backgroundColor: 'gray',
+        borderColor: "black",
+        marginTop:5,
+        marginBottom:5,
+        marginRight:10,
+        marginLeft:10,
+        borderRadius:15,
+        borderWidth:2,
+        elevation:10,
+        paddingHorizontal:10,
+        backgroundColor:"cornflowerblue",
         alignItems: 'center',
         justifyContent: 'center',
       },
@@ -38,19 +53,28 @@ const ListItem = (props) => {
       image: {
         width: '20%',
         flex: 1,
-        height: 200,
+        height: 150,
         flexDirection: 'row',
         margin: 10,
+        borderRadius:95,
+        borderWidth:1,
+        borderColor:"cyan",
+
 
       },
        titles: {
        fontWeight: 'bold',
+       fontSize:30,
+       color:"khaki",
       },
        details: {
         width: '45%',
         flex: 1,
         flexDirection: 'column',
         padding: 10,
-      }
+      },
+      all: {
+     color:'orange',
+      },
     });
     export default ListItem;

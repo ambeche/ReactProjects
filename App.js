@@ -1,4 +1,5 @@
 import React from 'react';
+import Constants from 'expo-constants';
 
 import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
 
@@ -37,11 +38,60 @@ const mediaArray = [
 
 const App = () => {
   return (
+ <View style={style123.fisrta}>
+   <View style={style123.statusBar}/>
+   <View style={style123.second}>
+
+     <Image
+     style={style123.imagestyle}
+     source={{uri: "http://petslady.com/sites/default/files/inline-images/Flexiginger.jpg"}}
+    />
+    <Text style={style123.texti}>hy, take cat and go home!</Text>
+
+   </View>
+
+   <View style= {style123.all}>
+
 
     <List mediaArray={mediaArray} />
+    </View>
+    </View>
 
   );
 };
+
+const style123 = StyleSheet.create({
+  statusBar: {
+    backgroundColor: "red",
+    height: Constants.statusBarHeight,
+  },
+  all: {
+    backgroundColor: "cornsilk",
+    flex:3,
+  },
+  fisrta:{
+   flex: 1,
+  },
+  second:{
+    flex:2,
+    backgroundColor: "blue",
+  },
+  imagestyle:{
+    flex:1,
+    height:undefined,
+    width:undefined,
+    alignSelf:'stretch',
+  },
+  texti:{
+    position:"absolute",
+    marginLeft:15,
+    marginTop:50,
+    backgroundColor:'rgba(0,0,0,0.2)',
+    fontWeight:"bold",
+  }
+
+  // rest of the styles
+});
 
 
 
