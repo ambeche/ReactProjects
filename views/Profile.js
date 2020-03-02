@@ -2,7 +2,7 @@ import React, {useEffect,useState} from 'react';
 import {AsyncStorage} from 'react-native';
 import {Body, Card, CardItem, Container, Content, Icon, Left, Text, Button} from "native-base";
 import {fetchGET} from '../hooks/APIHooks.js';
-import {AsyncImage} from '../components/AsynImage.js';
+import {AsyncImage} from '../components/AsyncImage.js';
 
 const mediaURL= "http://media.mw.metropolia.fi/wbma/uploads/";
 
