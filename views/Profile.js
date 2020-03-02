@@ -2,9 +2,8 @@ import React, {useEffect,useState} from 'react';
 import {AsyncStorage} from 'react-native';
 import {Body, Card, CardItem, Container, Content, Icon, Left, Text, Button} from "native-base";
 import {fetchGET} from '../hooks/APIHooks.js';
-import {AsyncImage} from '../components/AsyncImage.js';
-
-const mediaURL= "http://media.mw.metropolia.fi/wbma/uploads/";
+import {AsyncImage} from '../components/AsynImage.js';
+import {mediaURL} from "../constants/UrlConst";
 
 const Profile = (props) => {
 
@@ -29,6 +28,7 @@ const Profile = (props) => {
             console.log('Profile error: ', e.message);
         }
     };
+
 
     useEffect(() => {
         userToState();
@@ -66,6 +66,17 @@ const Profile = (props) => {
                     </CardItem>
                 </Card>
                 <Card style={{flex: 0}}>
+                    <CardItem>
+                        <Button info
+                            style={{width: '100%'}}
+                            title="MyFiles!"
+                            onPress={()=> props.navigation.push('MyFiles') }
+                            >
+                            <Body>
+                                <Text style={{color: 'white'}}>MyFiles</Text>
+                            </Body>
+                        </Button>
+                    </CardItem>
                     <CardItem>
                         <Button
                             style={{width: '100%'}}
