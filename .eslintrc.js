@@ -26,9 +26,9 @@ module.exports = {
   ],
   'rules': {
     'react/jsx-uses-react': 'error',
-        'react/jsx-uses-vars': 'error',
-        'no-console': 0,
-        'require-jsdoc': 0,
+    'react/jsx-uses-vars': 'error',
+    'no-console': 0,
+    'require-jsdoc': 0,
   },
   'settings': {
     'react': {
@@ -48,7 +48,7 @@ module.exports = {
       {'property': 'myFavoriteWrapper'},
     ],
     'linkComponents': [
-      // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
+      // components used as alternatives to <a> for linking, eg. <Link to={ url } />
       'Hyperlink',
       {'name': 'Link', 'linkAttribute': 'to'},
     ],
